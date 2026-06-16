@@ -1,6 +1,6 @@
 // app/api/Reporte.api.ts
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'https://backendfarmacia-production-74f4.up.railway.app';
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? 'https://backendfarmacia-irjz.onrender.com';
 
 function getAuthHeaders(): HeadersInit {
   const token =

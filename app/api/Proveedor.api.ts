@@ -3,7 +3,7 @@
 import { PaginatedResponse } from '../types/Inventario.types';
 import { ProveedorRequest, ProveedorResponse } from '../types/Proveedor.types';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://backendfarmacia-production-74f4.up.railway.app";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://backendfarmacia-irjz.onrender.com";
 
 function getAuthHeaders(): HeadersInit {
   const token =

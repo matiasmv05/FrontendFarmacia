@@ -1,4 +1,6 @@
 // app/types/Producto.types.ts
+import type { CategoriaProducto } from './Inventario.types';
+
 
 export type {
   CategoriaProducto,
@@ -9,7 +11,7 @@ export type {
 // Formulario local (campos pueden estar vacíos mientras el usuario escribe)
 export interface NuevoProductoForm {
   nombreComercial: string;
-  categoria: string | '';
+  categoria: CategoriaProducto | ''; 
   laboratorio: string;
   concentracion: string;
   presentacion: string;

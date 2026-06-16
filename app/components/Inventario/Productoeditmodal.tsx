@@ -4,6 +4,7 @@
 import { useEffect, useState } from 'react';
 import { ProductoDetalle, CategoriaProducto } from '../../types/Inventario.types';
 
+
 // Mapeamos el enum del backend a opciones legibles
 const CATEGORIAS: { value: CategoriaProducto; label: string }[] = [
                 { value: 'ANTIBIOTICOS',         label: 'Antibióticos' },

@@ -6,7 +6,7 @@ export type ClaseAbc = 'A' | 'B' | 'C';
 export interface ProductoDetalle {
   id: number;
   nombre: string;
-  categoria: string;
+  categoria: CategoriaProducto;
   laboratorio: string;
   concentracion: string;
   presentacion: string;
@@ -22,7 +22,7 @@ export interface ProductoDetalle {
 
 export interface ProductoRequest {
   nombre: string;
-  categoria: string;
+  categoria: CategoriaProducto;
   laboratorio: string;
   concentracion: string;
   presentacion: string;

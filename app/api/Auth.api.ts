@@ -31,18 +31,23 @@ export interface RegisterPayload {
   telefono?: string;
 }
 
-export async function registerApi(payload: RegisterPayload): Promise<void> {
+export async function registerApi(
+  payload: RegisterPayload
+): Promise<void> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`,
+    `${API_BASE}/api/auth/register`,
     {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(payload),
     }
   );
 
   if (!res.ok) {
     const error = await res.json().catch(() => ({}));
+
     throw {
       status: res.status,
       mensaje: error.message ?? "Error al registrarse",

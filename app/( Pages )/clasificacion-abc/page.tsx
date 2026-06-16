@@ -76,30 +76,29 @@ function AbcPageContent() {
         </div>
       )}
 
-      {/* Contenido principal — se renderiza si hay datos (no hay error) */}
-      {!error && (
-        <>
-          <div className="grid grid-cols-12 gap-6">
-            <div className="col-span-12 lg:col-span-7">
-              <AbcSummaryCards />
-            </div>
-            <div className="col-span-12 lg:col-span-5">
-              <ParetoChart />
-            </div>
-          </div>
+      {/* Contenido principal — se renderiza si hay datos O si el error es de recálculo */}
+{(!error || error.type === "SERVER") && (
+  <>
+    <div className="grid grid-cols-12 gap-6">
+      <div className="col-span-12 lg:col-span-7">
+        <AbcSummaryCards />
+      </div>
+      <div className="col-span-12 lg:col-span-5">
+        <ParetoChart />
+      </div>
+    </div>
+    <div className="w-full">
+      <AbcTable />
+    </div>
+  </>
+)}
 
-          <div className="w-full">
-            <AbcTable />
-          </div>
-        </>
-      )}
-
-      {/* Si es NO_DATA, mostrar solo la tabla vacía igualmente */}
-      {error?.type === "NO_DATA" && (
-        <div className="w-full">
-          <AbcTable />
-        </div>
-      )}
+{/* Si es NO_DATA, mostrar solo la tabla vacía */}
+{error?.type === "NO_DATA" && (
+  <div className="w-full">
+    <AbcTable />
+  </div>
+)}
     </div>
   );
 }

@@ -7,7 +7,7 @@ import {
 
 import { ProductoDetalle, ProductoRequest, PaginatedResponse, CategoriaProducto } from '../types/Inventario.types';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "backendfarmacia-production-03a6.up.railway.app";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "https://backendfarmacia-production-74f4.up.railway.app";
 
 function getAuthHeaders(): HeadersInit {
   const token =

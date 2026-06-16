@@ -53,28 +53,46 @@ function AbcPageContent() {
         </button>
       </div>
 
- {/* Banner de error — solo se muestra si hay error pero NO está cargando */}
-{error && (
-  <div
-    className={`flex items-start gap-3 rounded-lg px-4 py-3 border text-sm ${
-      error.type === "NO_DATA"
-        ? "bg-surface-container border-outline-variant text-on-surface-variant"
-        : "bg-error-container/20 border-error/30 text-error"
-    }`}
-  >
-    <span className="material-symbols-outlined text-[20px] shrink-0 mt-0.5">
-      {error.type === "NO_DATA" ? "info" : "error_outline"}
-    </span>
-    <div>
-      <p className="font-medium">
-        {error.type === "NO_DATA"
-          ? "Sin datos de clasificación"
-          : "Error al cargar"}
-      </p>
-      <p className="text-xs mt-0.5 opacity-80">{error.message}</p>
-    </div>
-  </div>
-)}
+      {/* Banner de error — solo se muestra si hay error pero NO está cargando */}
+      {error && (
+        <div
+          className={`flex items-start gap-3 rounded-lg px-4 py-3 border text-sm ${
+            error.type === "NO_DATA"
+              ? "bg-surface-container border-outline-variant text-on-surface-variant"
+              : "bg-error-container/20 border-error/30 text-error"
+          }`}
+        >
+          <span className="material-symbols-outlined text-[20px] shrink-0 mt-0.5">
+            {error.type === "NO_DATA" ? "info" : "error_outline"}
+          </span>
+          <div>
+            <p className="font-medium">
+              {error.type === "NO_DATA"
+                ? "Sin datos de clasificación"
+                : "Error al cargar"}
+            </p>
+            <p className="text-xs mt-0.5 opacity-80">{error.message}</p>
+          </div>
+        </div>
+      )}
+
+      {/* Contenido principal — se renderiza si hay datos (no hay error) */}
+      {!error && (
+        <>
+          <div className="grid grid-cols-12 gap-6">
+            <div className="col-span-12 lg:col-span-7">
+              <AbcSummaryCards />
+            </div>
+            <div className="col-span-12 lg:col-span-5">
+              <ParetoChart />
+            </div>
+          </div>
+
+          <div className="w-full">
+            <AbcTable />
+          </div>
+        </>
+      )}
 
       {/* Si es NO_DATA, mostrar solo la tabla vacía igualmente */}
       {error?.type === "NO_DATA" && (

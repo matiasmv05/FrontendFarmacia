@@ -21,8 +21,7 @@ import { transformAbcHistorial } from "../service/Abc.service";
 // ─── Tipos de error para distinguir casos ────────────────────────────────────
 type AbcError =
   | { type: "NO_DATA"; message: string }   // backend 404: aún no hay cálculos
-  | { type: "SERVER"; message: string }  
-  | { type: "RECALC_WARNING"; message: string }  // error de red o 5xx
+  | { type: "SERVER"; message: string }    // error de red o 5xx
   | null;
 
 interface AbcContextType {
@@ -147,25 +146,25 @@ export const AbcProvider: React.FC<{ children: React.ReactNode }> = ({
   const totalFilteredItems = filteredItems.length;
 
   // ─── Recálculo manual → POST /api/clasificacion-abc/calcular ──────────────
- const recalculateClassification = async () => {
-  try {
-    setUpdating(true);
-    setError(null);
+  const recalculateClassification = async () => {
+    try {
+      setUpdating(true);
+      setError(null);
 
-    const historial = await recalcularAbcApi("Recálculo manual desde UI");
-    const { items, summaries, metadata } = transformAbcHistorial(historial);
+      const historial = await recalcularAbcApi("Recálculo manual desde UI");
+      const { items, summaries, metadata } = transformAbcHistorial(historial);
 
-    setAllItems(items);
-    setSummaries(summaries);
-    setMetadata(metadata);
-    setCurrentPage(1);
-  } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : "Error al recalcular";
-    setError({ type: "RECALC_WARNING", message: msg });
-  } finally {
-    setUpdating(false);
-  }
-};
+      setAllItems(items);
+      setSummaries(summaries);
+      setMetadata(metadata);
+      setCurrentPage(1);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Error al recalcular";
+      setError({ type: "SERVER", message: msg });
+    } finally {
+      setUpdating(false);
+    }
+  };
 
   return (
     <AbcContext.Provider

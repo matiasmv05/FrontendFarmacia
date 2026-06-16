@@ -6,7 +6,7 @@ import {
   RecepcionMercaderiaResponseDto,
 } from "../types/Recepcion.types";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "backendfarmacia-production-e0e6.up.railway.app";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "backendfarmacia-production-03a6.up.railway.app";
 
 function getAuthHeaders(): HeadersInit {
   const token =

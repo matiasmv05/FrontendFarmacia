@@ -1,6 +1,6 @@
 import { LoginRequest, LoginResponse, ApiError } from "../types/Auth.types";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "backendfarmacia-production-e0e6.up.railway.app";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "backendfarmacia-production-03a6.up.railway.app";
 
 export async function loginApi(credentials: LoginRequest): Promise<LoginResponse> {
   const res = await fetch(`${API_BASE}/api/auth/login`, {

@@ -88,23 +88,30 @@ function PerfilModal({ onClose }: { onClose: () => void }) {
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
 
-          {/* Info de rol — solo lectura */}
-          <div className="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg border border-outline-variant/50">
-            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-              <span className="material-symbols-outlined text-primary">person</span>
-            </div>
-            <div>
-              <p className="font-body-md text-on-surface font-medium">{user?.nombreCompleto}</p>
-              <p className="font-body-sm text-on-surface-variant">{user?.username}</p>
-            </div>
-            <span className={`ml-auto inline-flex items-center px-2 py-1 rounded font-label-md text-label-sm border ${
-              user?.rol === 'ADMINISTRADOR'
-                ? 'bg-primary-container/10 text-primary border-primary/20'
-                : 'bg-surface-variant text-on-surface-variant border-outline-variant/30'
-            }`}>
-              {user?.rol === 'ADMINISTRADOR' ? 'Administrador' : 'Operador'}
-            </span>
-          </div>
+        {/* Info de rol — solo lectura */}
+<div className="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg border border-outline-variant/50">
+  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+    <span className="material-symbols-outlined text-primary">person</span>
+  </div>
+  <div className="flex flex-col min-w-0">
+    <p className="font-body-md text-on-surface font-medium truncate">
+      {user?.nombreCompleto ?? '—'}
+    </p>
+    <p className="font-body-sm text-on-surface-variant truncate">
+      {user?.username ?? '—'}
+    </p>
+    <p className="font-body-sm text-on-surface-variant truncate">
+    {form.telefono.trim() ? form.telefono : 'Sin teléfono'}
+  </p>
+  </div>
+  <span className={`ml-auto shrink-0 inline-flex items-center px-2 py-1 rounded font-label-md text-label-sm border ${
+    user?.rol === 'ADMINISTRADOR'
+      ? 'bg-primary-container/10 text-primary border-primary/20'
+      : 'bg-surface-variant text-on-surface-variant border-outline-variant/30'
+  }`}>
+    {user?.rol === 'ADMINISTRADOR' ? 'Administrador' : 'Operador'}
+  </span>
+</div>
 
           {error && (
             <div className="p-3 rounded bg-error-container text-on-error-container font-body-sm text-body-sm flex items-center gap-2">

@@ -9,7 +9,7 @@ import {
   PaginatedLoteResponse,
 } from "../types/Movimiento.types";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "backendfarmacia-production-e0e6.up.railway.app";
 
 function getAuthHeaders(): HeadersInit {
   const token =

@@ -2,7 +2,10 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { ProveedorResponse } from "../../types/Proveedor.types";
+import { fetchProveedoresActivosApi } from "../../api/Proveedor.api";
 import { useRouter } from "next/navigation";
+
 import {
   fetchOrdenesApi,
   crearOrdenApi,
@@ -227,7 +230,7 @@ function NuevaOrdenModal({
   onClose,
   onCrear,
 }: {
-  proveedores: { id: number; nombre: string }[];
+  proveedores: ProveedorResponse[];
   onClose: () => void;
   onCrear: (data: { proveedorId: number; notas?: string; items: OrdenCompraItemRequestDto[] }) => Promise<void>;
 }) {
@@ -482,7 +485,7 @@ export default function OrdenesPage() {
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [detalle, setDetalle]       = useState<OrdenCompraResponseDto | null>(null);
   const [showNueva, setShowNueva]   = useState(false);
-  const [proveedores, setProveedores] = useState<{ id: number; nombre: string }[]>([]);
+  const [proveedores, setProveedores] = useState<ProveedorResponse[]>([]);
   const [proveedoresError, setProveedoresError] = useState<string | null>(null);
   const LIMIT = 20;
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -512,35 +515,16 @@ export default function OrdenesPage() {
   useEffect(() => { setCurrentPage(0); }, [estadoFilter]);
 
   // Cargar proveedores para el modal
-  useEffect(() => {
-    const token = sessionStorage.getItem("farmacia_token") ?? localStorage.getItem("farmacia_token") ?? "";
-    fetch(
-      `${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080"}/api/proveedores?activo=true&page=0&limit=100`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
-      .then((r) => {
-        if (!r.ok) {
-          if (r.status === 403) {
-            throw new Error("No tienes permiso para ver proveedores");
-          }
-          throw new Error(`Error ${r.status} al cargar proveedores`);
-        }
-        return r.json();
-      })
-      .then((body) => {
-        setProveedores(body.data ?? []);
-        setProveedoresError(null);
-      })
-      .catch((err) => {
-        console.error("Error cargando proveedores:", err);
-        setProveedoresError(err instanceof Error ? err.message : "Error al cargar proveedores");
-      });
-  }, []);
+ useEffect(() => {
+  fetchProveedoresActivosApi()
+    .then((data) => {
+      setProveedores(data);
+      setProveedoresError(null);
+    })
+    .catch((err) => {
+      setProveedoresError(err instanceof Error ? err.message : "Error al cargar proveedores");
+    });
+}, []);
 
   // Filtrar por búsqueda local (por proveedor o id)
   const filtered = ordenes.filter((o) => {

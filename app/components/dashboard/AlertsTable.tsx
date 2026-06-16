@@ -243,11 +243,10 @@ export default function AlertsTable({ alerts, total, onAlertAction }: AlertsTabl
                         {alert.stockActual ?? "—"}
                       </td>
 
-                      <td className="py-3 px-2">
-                        <span className={`inline-flex items-center px-2 py-1 rounded-sm text-[10px] font-bold ${colors.badge}`}>
-                          {label}
+                     <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-sm text-[10px] font-bold ${colors.badge}`}>
+                        <span className={`w-1.5 h-1.5 rounded-full ${colors.bar}`} />
+                          {label} 
                         </span>
-                      </td>
 
                       {/* ── Acciones contextuales según tipo de alerta ── */}
                       <td className="py-3 px-5">
